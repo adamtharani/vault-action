@@ -1072,10 +1072,13 @@ async function getClientToken(client, method, path, payload) {
         responseType,
     };
 
+    core.debug(`client: ${client}, method: ${method}, path: ${path}, payload: ${payload}`);
+
     core.debug(`Retrieving Vault Token from v1/auth/${path}/login endpoint`);
 
     /** @type {import('got').Response<VaultLoginResponse>} */
     const response = await client.post(`v1/auth/${path}/login`, options);
+    core.debug(response);
     if (response && response.body && response.body.auth && response.body.auth.client_token) {
         core.debug('✔ Vault Token successfully retrieved');
 
